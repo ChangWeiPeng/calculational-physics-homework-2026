@@ -1,0 +1,14 @@
+half_life = 0.69314718 s
+N(5): Euler = 0.37778932, exact = 0.67379470
+dt = 0.2: max_abs_error = 4.01994412
+after dt = 0.05: max_abs_error = 0.93935188
+dt = 0.5: max_abs_error = 11.78794412
+dt = 0.25: max_abs_error = 5.14731912
+dt = 0.2: max_abs_error = 4.01994412
+dt = 0.1: max_abs_error = 1.92010011
+dt = 0.05: max_abs_error = 0.93935188
+dt = 0.025: max_abs_error = 0.46470013
+error ratio 0.5/0.25 = 2.29011333
+error ratio 0.05/0.025 = 2.02141514
+log-log slope = 1.07143637
+unstable dt = 2.5: N(25) = 5766.50390625

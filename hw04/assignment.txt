@@ -1,0 +1,133 @@
+练习  1.7 （⾯向对象  + matplotlib 版）
+对应内容：教材  (1.1) 式  dNU/dt = −NU/τ、 (1.2) 式解析解、 (1.3)–(1.4) 式  Euler 格式、以及
+1.5 节的截断误差与稳定性讨论。
+配合课程：《 Python ⾯向对象与函数式编程》单元  6 （@property  / @classmethod ）与单元
+9 （装饰器）。
+建议⽤时： 90–120 分钟。难度：★★☆（⽐教材  1.1–1.3 多⼀层⼯程要求，物理内容不变）。
+⼀、题⽬背景
+教材⾥我们已经⽤  Euler 法算过放射性衰变，并发现 " 缩⼩时间步⻓  Δt 会让数值解逼近解析
+解 " 。现在请你把这套计算封装成⼀个类，并画出⼀张能⾃⼰说明问题的图—— 不仅是把曲线
+画出来，⽽是要让图上的证据回答：
+本题必须使⽤  @property （⾄少要有⼀个带  setter 的校验属性、⼀个 " 算出来 " 的计算属性），
+并⽤  matplotlib  出图。
+⼆、程序要求
+写⼀个模块  decay_oop.py ，实现类  Decay ，对外接⼝必须与下表⼀致（评分按此接⼝⾃动
+核对）：
+接⼝ 类型 含义
+Decay(N0, tau, dt, t_max) 构造 初值、时间常数、步⻓、
+模拟总时⻓
+d.t @property  → 
+ndarray
+与  Euler 取值点严格对⻬
+的⽹格  tk = kΔt
+d.numerical @property  → 
+ndarray
+Euler 数值解  (1.4)
+d.exact @property  → 
+ndarray
+解析解  (1.2) N0e−t/τ，取
+样点同  d.t
+d.error @property  → 
+ndarray
+带符号的逐点误差  
+numerical - exact
+1. Euler 法的误差是随机的还是系统性的？
+2. 误差随  Δt 如何变化？这能否证明  Euler 法是 " ⼀阶⽅法 " ？
+3. Δt ⼤到什么程度，数值解会彻底失效？
+
+接⼝ 类型 含义
+d.max_abs_error @property  → 
+float
+最⼤绝对误差
+d.half_life @property  → 
+float
+半衰期  τ ln 2
+d.N0  / d.tau  / d.dt @property  + 
+@setter
+读得到；写⼊⾮法值（≤ 0
+）时抛  ValueError
+Decay.euler_step(n, dt, tau) @staticmethod 单步  Euler ：n − n Δt/τ
+Decay.from_half_life(N0, 
+t_half, dt, t_max)
+@classmethod ⽤半衰期构造：
+τ = t1/2/ ln 2
+实现要点：
+三、绘图要求
+⽤  matplotlib  画⼀张  1×3 ⼦图（figsize=(15, 4.2) ），保存为  decay_oop.png （ dpi ≥
+140 ）：
+⾯板 内容 必须有的标注
+左 解析解曲线  + Euler 数值解散点（Δt = 0.2 s ） 横轴 " 时间  t/s" 、纵轴 " 剩余核数  
+N" 、图例区分两条线
+中 逐点误差  Nnum − Nexact 随  t 的变化 零参考线；标题⾥给出最⼤绝对
+误差的数值
+右 log-log 图：最⼤绝对误差  vs Δt（
+Δt = 0.5, 0.25, 0.2, 0.1, 0.05, 0.025）
+⼀条斜率为  1 的参考虚线；标题
+给出  np.polyfit  拟合的斜率
+参数固定为  N0 = 100、τ = 1 s 、t ∈ [0, 5] s 。
+图⾯质量要求（教材  1.5 节 " 程序编写指南 " 的同⼀标准）：坐标轴必须有量与单位；中⽂标签
+不能出现⽅框（需设置  font.sans-serif ，⻅提示  3 ）； log 轴刻度不要挤成⼀团。
+计算属性必须 " 现算 " ，不允许缓存。 这样  d.dt = 0.05  之后  d.max_abs_error  ⾃动更
+新，不会读到过期结果。
+⽤  @setter  做校验：Decay(100, -1.0, 0.2, 5)  与  d.dt = 0  都必须抛
+ValueError 。
+浮点数⽐较⽤  np.allclose ，不要在循环⾥拼接  Python list 再转  ndarray （可以，但要
+说明理由）。
+
+四、分析题（写在代码⽂件的  docstring 或单独的  README  ⾥，
+不超过  10 ⾏）
+五、⾃查表（提交前逐项核对）
+⽤  N0 = 100、τ = 1 s 、tmax = 5 s 运⾏，结果应落在下表范围内（容差  ±0.5% ）：
+检查项 期望值
+半衰期  d.half_life 0.6931 s
+Δt = 0.2 时  N(5) 0.3778 （解析值  0.6738 ）
+Δt = 0.2 时  max_abs_error 4.0199 （出现在  t = 1 s 附近）
+Δt = 0.05 时  
+max_abs_error
+0.9394
+误差⽐（Δt
+ 减半时的误差⽐）
+趋于  2.0 （0.5 → 0.25 ⼀格为  2.29 ，0.05 → 0.025 已到  
+2.02 ）
+log-log 拟合斜率 1.0 ± 0.1
+Δt = 2.5、t = 25 时的  |N| 发散（量级  103 以上）
+另外：
+六、评分要点（满分  100 ）
+1. error  为什么恒为负？从  (1 − Δt/τ)n 与  e−t/τ 的⼤⼩关系说明。
+2. 右图斜率  ≈ 1 说明了什么？如果把  Euler 换成 " 每步⽤  Nk+1 = Nke−Δt/τ" （精确递推），右
+图会变成什么样？
+3. 取  Δt = 2.5 s （即  > 2τ）重跑，数值解发⽣了什么？⽤  |1 − Δt/τ| 的取值解释这个 " 稳定
+性边界 " 。（教材  1.5 节讨论过稳定性，本题要求你⽤实验确认它。）
+Decay(100, -1.0, 0.2, 5)  抛  ValueError
+d.dt = 0.05  后  d.max_abs_error  ⽴刻从  4.0199 变为  0.9394 （证明属性现算、⽆过
+期缓存）
+Decay.from_half_life(100, 0.6931, 0.2, 5)  与  Decay(100, 1.0, 0.2, 5)  的
+max_abs_error
+⼀致（实测相对差  7×10 ⁻ ⁵，差异只来⾃  0.6931 这个四舍五⼊的半衰期）
+图中⽆中⽂缺字⽅框、⽆未标注坐标轴
+
+项 分值 判定
+接⼝与装饰器⻬备
+（@property /setter/@staticmethod /@classmethod  各到位）
+30 缺⼀项扣  5–8 分
+计算属性现算、改参数后结果⾃动更新 15 出现⼿动 " 重
+算 " 调⽤或缓存
+过期即扣满
+三⾯板图内容、标注、单位、图例 25 缺单位 / 图例 / 参
+考线各扣  5
+分析题  3 问（符号、阶、稳定性） 20 每问  5–7 分，只
+看物理与数值解
+释
+⾃查表通过 10 每项不符扣  2
+七、提示
+1. 别忘了解析解的取样点要和  Euler 的取值点相同（d.t ），否则误差曲线会出现虚假的锯
+⻮。
+2. np.polyfit(np.log(dts), np.log(errs), 1)[0]  就直接给出  log-log 斜率。
+3. 中⽂字体（ macOS/Linux 通⽤写法）：
+plt.rcParams["font.sans-serif"] = ["Source Han Sans SC", "Noto Sans 
+CJK SC",
+                                   "PingFang SC", "Heiti SC", 
+"SimHei", "Arial Unicode MS"]
+plt.rcParams["axes.unicode_minus"] = False
+4. 画图前调⽤  matplotlib.use("Agg") ，在没有显示器的环境（服务器、 CI ）⾥也能存
+图。
