@@ -1,0 +1,21 @@
+{
+  "angle_deg": 47.56979598122167,
+  "speed_m_s": 105.58556621639964,
+  "first_hit_time_s": 14.35,
+  "closest_time_s": 14.35,
+  "closest_distance_m": 1.999000000010634,
+  "closest_position_m": [
+    998.6423056490379,
+    98.5328029957064
+  ],
+  "maximum_height_m": 304.34860091838885,
+  "maximum_height_before_hit_m": 304.34860091838885,
+  "first_below_ground_time_s": 15.77,
+  "density_ratio_at_apex": 0.983595893102817,
+  "constant_density_speed_m_s": 105.60100429002914,
+  "constant_density_angle_deg": 47.52873070590871,
+  "vacuum_speed_m_s": 103.88595948219621,
+  "vacuum_angle_deg": 47.79625595688146,
+  "dt_s": 0.01,
+  "search_radius_m": 1.999
+}
