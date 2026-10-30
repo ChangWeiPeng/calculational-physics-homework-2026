@@ -1,0 +1,127 @@
+{
+  "parameters": {
+    "g": 9.8,
+    "length": 9.8,
+    "q": 0.5,
+    "drive": 1.2,
+    "drive_frequency": 0.6666666666666666
+  },
+  "runs": [
+    {
+      "label": "ic0",
+      "initial": [
+        0.2,
+        0.0
+      ],
+      "dt": 0.04,
+      "samples": 10000,
+      "discard_periods": 300,
+      "last_sample_time": 97075.21299592461,
+      "integration_end_time": 97075.24
+    },
+    {
+      "label": "ic1",
+      "initial": [
+        0.8,
+        0.0
+      ],
+      "dt": 0.04,
+      "samples": 10000,
+      "discard_periods": 300,
+      "last_sample_time": 97075.21299592461,
+      "integration_end_time": 97075.24
+    },
+    {
+      "label": "ic2",
+      "initial": [
+        -1.0,
+        0.5
+      ],
+      "dt": 0.04,
+      "samples": 10000,
+      "discard_periods": 300,
+      "last_sample_time": 97075.21299592461,
+      "integration_end_time": 97075.24
+    },
+    {
+      "label": "dt02",
+      "initial": [
+        0.2,
+        0.0
+      ],
+      "dt": 0.02,
+      "samples": 10000,
+      "discard_periods": 300,
+      "last_sample_time": 97075.21299592461,
+      "integration_end_time": 97075.22
+    },
+    {
+      "label": "dt01",
+      "initial": [
+        0.2,
+        0.0
+      ],
+      "dt": 0.01,
+      "samples": 50000,
+      "discard_periods": 300,
+      "last_sample_time": 474066.33142669976,
+      "integration_end_time": 474066.34
+    }
+  ],
+  "window": [
+    2.0,
+    2.7,
+    -1.4,
+    -0.7
+  ],
+  "subwindow": [
+    2.14,
+    2.38,
+    -1.32,
+    -1.12
+  ],
+  "local_count": 6036,
+  "nested_count": 2939,
+  "epsilons": [
+    0.4,
+    0.2,
+    0.1,
+    0.05,
+    0.025,
+    0.0125,
+    0.00625,
+    0.003125,
+    0.0015625
+  ],
+  "counts": [
+    4,
+    11,
+    26,
+    68,
+    145,
+    289,
+    554,
+    1025,
+    1713
+  ],
+  "half_counts": [
+    4,
+    11,
+    26,
+    66,
+    140,
+    276,
+    488,
+    825,
+    1278
+  ],
+  "fit_indices": [
+    2,
+    3,
+    4,
+    5
+  ],
+  "dimension": 1.1515904141843363,
+  "half_dimension": 1.1309143113497748,
+  "r_squared": 0.9939499857758901
+}
